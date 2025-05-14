@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventario Manual</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    button {
+      padding: 5px 10px;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inventario Manual</h1>
+
+  <table id="inventoryTable">
+    <thead>
+      <tr>
+        <th>Nombre Producto</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-product="Producto A">
+        <td>Producto A</td>
+        <td class="cantidad">0</td>
+        <td>
+          <button onclick="cambiarCantidad(this, -1)">-</button>
+          <button onclick="cambiarCantidad(this, 1)">+</button>
+        </td>
+      </tr>
+      <tr data-product="Producto B">
+        <td>Producto B</td>
+        <td class="cantidad">0</td>
+        <td>
+          <button onclick="cambiarCantidad(this, -1)">-</button>
+          <button onclick="cambiarCantidad(this, 1)">+</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const STORAGE_KEY = 'inventario';
+
+    function cargarDatos() {
+      const datos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      document.querySelectorAll('#inventoryTable tbody tr').forEach(row => {
+        const nombre = row.dataset.product;
+        const cantidad = datos[nombre] || 0;
+        row.querySelector('.cantidad').textContent = cantidad;
+      });
+    }
+
+    function guardarDatos() {
+      const datos = {};
+      document.querySelectorAll('#inventoryTable tbody tr').forEach(row => {
+        const nombre = row.dataset.product;
+        const cantidad = parseInt(row.querySelector('.cantidad').textContent);
+        datos[nombre] = cantidad;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(datos));
+    }
+
+    function cambiarCantidad(button, cambio) {
+      const fila = button.closest('tr');
+      const celdaCantidad = fila.querySelector('.cantidad');
+      let cantidad = parseInt(celdaCantidad.textContent);
+      cantidad = Math.max(0, cantidad + cambio);
+      celdaCantidad.textContent = cantidad;
+      guardarDatos();
+    }
+
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('SW registrado'))
+        .catch(err => console.log('SW fallo:', err));
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>
