@@ -24,7 +24,15 @@ function renderTabla() {
     celdaNombre.appendChild(inputNombre);
 
     const celdaCantidad = document.createElement("td");
-    celdaCantidad.textContent = producto.cantidad;
+    const inputCantidad = document.createElement("input");
+    inputCantidad.type = "number";
+    inputCantidad.value = parseInt(producto.cantidad);
+    inputCantidad.min = 0;
+    inputCantidad.addEventListener("change", (e) => {
+      productos[index].cantidad = Math.max(0, e.target.value);
+      guardarDatos();
+    });
+    celdaCantidad.appendChild(inputCantidad);
 
     const celdaAcciones = document.createElement("td");
     const btnMenos = document.createElement("button");
@@ -42,8 +50,20 @@ function renderTabla() {
       renderTabla();
     };
 
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.style.marginRight = "10px";
+    btnEliminar.onclick = () => {
+      if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+        productos.splice(index, 1);
+        guardarDatos();
+        renderTabla();
+      }
+    };
+
     celdaAcciones.appendChild(btnMenos);
     celdaAcciones.appendChild(btnMas);
+    celdaAcciones.appendChild(btnEliminar);
 
     fila.appendChild(celdaNombre);
     fila.appendChild(celdaCantidad);
@@ -65,11 +85,11 @@ document.getElementById("newProductForm").addEventListener("submit", (e) => {
 });
 
 // Service Worker
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("service-worker.js")
-    .then(() => console.log("SW registrado"))
-    .catch((err) => console.log("Error al registrar SW:", err));
-}
+// if ("serviceWorker" in navigator) {
+//   navigator.serviceWorker
+//     .register("service-worker.js")
+//     .then(() => console.log("SW registrado"))
+//     .catch((err) => console.log("Error al registrar SW:", err));
+// }
 
 renderTabla();
