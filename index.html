@@ -1,37 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
   <title>Inventario Manual</title>
   <link rel="manifest" href="manifest.json">
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-    }
-    button {
-      padding: 5px 10px;
-      margin: 0 2px;
-    }
-    input[type="text"] {
-      width: 90%;
-    }
-    #newProductForm {
-      margin-top: 1rem;
-    }
-  </style>
 </head>
+
 <body>
   <h1>Inventario Manual</h1>
 
@@ -50,82 +27,7 @@
     </thead>
     <tbody></tbody>
   </table>
-
-  <script>
-    const STORAGE_KEY = 'inventario';
-
-    let productos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-    function guardarDatos() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
-    }
-
-    function renderTabla() {
-      const tbody = document.querySelector('#inventoryTable tbody');
-      tbody.innerHTML = '';
-
-      productos.forEach((producto, index) => {
-        const fila = document.createElement('tr');
-
-        const celdaNombre = document.createElement('td');
-        const inputNombre = document.createElement('input');
-        inputNombre.type = 'text';
-        inputNombre.value = producto.nombre;
-        inputNombre.addEventListener('change', e => {
-          productos[index].nombre = e.target.value;
-          guardarDatos();
-        });
-        celdaNombre.appendChild(inputNombre);
-
-        const celdaCantidad = document.createElement('td');
-        celdaCantidad.textContent = producto.cantidad;
-
-        const celdaAcciones = document.createElement('td');
-        const btnMenos = document.createElement('button');
-        btnMenos.textContent = '-';
-        btnMenos.onclick = () => {
-          productos[index].cantidad = Math.max(0, productos[index].cantidad - 1);
-          guardarDatos();
-          renderTabla();
-        };
-        const btnMas = document.createElement('button');
-        btnMas.textContent = '+';
-        btnMas.onclick = () => {
-          productos[index].cantidad++;
-          guardarDatos();
-          renderTabla();
-        };
-
-        celdaAcciones.appendChild(btnMenos);
-        celdaAcciones.appendChild(btnMas);
-
-        fila.appendChild(celdaNombre);
-        fila.appendChild(celdaCantidad);
-        fila.appendChild(celdaAcciones);
-
-        tbody.appendChild(fila);
-      });
-    }
-
-    document.getElementById('newProductForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const nombre = document.getElementById('newProductName').value.trim();
-      if (nombre) {
-        productos.push({ nombre, cantidad: 0 });
-        guardarDatos();
-        renderTabla();
-        e.target.reset();
-      }
-    });
-
-    // Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('SW registrado'))
-        .catch(err => console.log('Error al registrar SW:', err));
-    }
-
-    renderTabla();
-  </script>
+  <script src="app.js"></script>
 </body>
+
 </html>
