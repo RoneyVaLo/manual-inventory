@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("newProductForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const nombre = document.getElementById("newProductName").value.trim();
-      alert("Form:", nombre)
     if (nombre) {
       productos.push({ nombre, cantidad: 0 });
       guardarDatos();
