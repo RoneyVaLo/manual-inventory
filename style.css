@@ -3,7 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  /* font-family: "Comic Sans MS", cursive, sans-serif; */
 }
 
 body {
@@ -39,6 +39,7 @@ body {
   background-color: #28a745;
   color: white;
   width: 100%;
+  margin-top: 4px;
 }
 
 /* Lista de productos */
