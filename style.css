@@ -1,30 +1,106 @@
-body {
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: sans-serif;
-  padding: 20px;
 }
 
-table {
+body {
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+/* Título */
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* Formulario */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-text {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.inventory-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 10px;
+.inventory-table th,
+.inventory-table td {
+  padding: 12px;
   text-align: center;
+  border-bottom: 1px solid #eee;
 }
 
-button {
-  padding: 5px 10px;
-  margin: 0 2px;
+.input-number {
+  padding: 8px;
+  width: 60px;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-input[type="text"] {
-  width: 90%;
+/* Acciones */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
 }
 
-#newProductForm {
-  margin-top: 1rem;
+.action-btn {
+  background-color: #007bff;
+  color: white;
+  width: 36px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  width: 36px;
+}
+
+/* Responsive */
+@media (min-width: 480px) {
+  .product-form {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .input-text {
+    flex: 1;
+  }
+
+  .add-btn {
+    width: auto;
+  }
 }

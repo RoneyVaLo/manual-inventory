@@ -10,19 +10,19 @@
 </head>
 
 <body>
-  <h1>Inventario Manual</h1>
+  <h1 class="title">Inventario Manual</h1>
 
-  <form id="newProductForm">
-    <input type="text" id="newProductName" placeholder="Nombre del producto" required />
-    <button type="submit">Agregar producto</button>
+  <form id="newProductForm" class="product-form">
+    <input type="text" id="newProductName" class="input-text" placeholder="Nombre del producto" required />
+    <button type="submit" class="btn add-btn">Agregar producto</button>
   </form>
 
-  <table id="inventoryTable">
+  <table id="inventoryTable" class="inventory-table">
     <thead>
       <tr>
         <th>Nombre Producto</th>
         <th>Cantidad</th>
-        <th>Acciones</th>
+        <th colspan="2">Acciones</th>
       </tr>
     </thead>
     <tbody></tbody>
