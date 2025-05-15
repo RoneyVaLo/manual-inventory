@@ -85,10 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  alert("Form:", document.getElementById("newProductForm"))
   document.getElementById("newProductForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nombre = document.getElementById("newProductName").value.trim();
+      e.preventDefault();
+      const nombre = document.getElementById("newProductName").value.trim();
+      alert("Form:", nombre)
     if (nombre) {
       productos.push({ nombre, cantidad: 0 });
       guardarDatos();
